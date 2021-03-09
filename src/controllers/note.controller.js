@@ -1,5 +1,5 @@
 /* Methods */
-const Note = require('../schema/Notes')
+const Note = require("../schema/Notes");
 const createNote = async (req, res) => {
   try {
     const note = await new Note(req.body).save();
@@ -14,12 +14,22 @@ const getNotes = async (req, res) => {
   res.json(notes);
 };
 
-const getNoteByID = (req, res) => {
-  res.json({ message: "get Note by id" });
+const getNoteByID = async (req, res) => {
+  try {
+    const NOTE = await Note.findById(req.params.id);
+    res.status(200).json(NOTE);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
-const deleteNote = (req, res) => {
-  res.json({ message: "delete Note by id" });
+const deleteNote = async (req, res) => {
+  try {
+    const NOTE = await Note.findByIdAndRemove(req.params.id);
+    res.status(200).json(NOTE);
+  } catch (error) {
+    res.status(500).json(error);
+  }
 };
 
 const noteController = {
