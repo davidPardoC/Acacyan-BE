@@ -1,7 +1,6 @@
-import { noteControllerModel } from '../models/noteController';
-import express = require('express');
+const  express = require('express');
 const router = express.Router();
-const noteController:noteControllerModel = require('../controllers/note.controller');
+const noteController = require('../controllers/note.controller');
 
 router.get('/',noteController.getNotes)
 router.post('/',noteController.createNote)
