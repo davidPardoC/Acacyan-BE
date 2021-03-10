@@ -8,8 +8,8 @@ const model = mongoose.model;
 /* Schema */
 const UserSchema = new Schema({
   userName: { type: String, unique: true },
-  email: { type: String, unique: true },
-  password: { type: Date, default: Date.now },
+  email: { type: String, unique: true, required:true },
+  password: { type: String, required:true },
 });
 
 UserSchema.statics.hashPassword = async (password)=> {
@@ -23,5 +23,5 @@ UserSchema.statics.comparePassword = async (
 )=> {
   return bcrypt.compare(password, hashPassword);
 };
-const NoteModel = model("User", UserSchema);
-module.exports = NoteModel
+const UserModel = model("User", UserSchema);
+module.exports = UserModel;
