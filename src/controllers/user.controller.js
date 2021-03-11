@@ -1,5 +1,5 @@
 const User = require("../schema/Users");
-
+const jwt = require('jsonwebtoken')
 const createuser = async (req, res) => {
   const { userName, email, password } = req.body;
   if (await checkExistinguser(userName, email)) {
@@ -32,7 +32,10 @@ const loginUsername = async (userName, password, res) => {
   const USER = await User.findOne({ userName });
   if (USER !== null) {
     if (await User.comparePassword(password, USER.password)) {
-      return res.status(200).json({ loged: true });
+      let userObject = USER.toObject()
+      delete userObject.password
+      const token = jwt.sign(userObject, 'cocoa')
+      return res.status(200).json({ access_token: token });
     } else {
       return res.status(500).json({ error: "Incorrect username or password" });
     }
@@ -45,7 +48,10 @@ const loginEmail = async (email, password, res) => {
   const USER = await User.findOne({ email });
   if (USER !== null) {
     if (await User.comparePassword(password, USER.password)) {
-      res.status(200).json({ loged: true });
+      let userObject = USER.toObject()
+      delete userObject.password
+      const token = jwt.sign(userObject, 'cocoa')
+      return res.status(200).json({ access_token: token });
     } else {
       res.status(500).json({ error: "Incorrect email or password" });
     }

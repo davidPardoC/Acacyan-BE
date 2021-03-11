@@ -1,4 +1,5 @@
 const express = require("express");
+const verifyToken = require("./middleware/auth");
 const app = express();
 /* MiddleWares */
 app.use(express.json())
@@ -16,7 +17,7 @@ app.get("/", (req, res) => {
 
 
 /* Routes */
-app.use('/notes', notesRouter)
+app.use('/notes',verifyToken, notesRouter)
 app.use('/users', userRouter)
 
 app.listen(3000, () => {
