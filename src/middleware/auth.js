@@ -8,6 +8,7 @@ const verifyToken = (req, res, next) => {
         if(err){
             return res.status(500).json(err)
         }else{
+            req.userId = decoded._id
             next()
         }
     });

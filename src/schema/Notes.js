@@ -5,8 +5,9 @@ const model = mongoose.model;
 
 /* Schema */
 const NoteSchema = new Schema({
-    content:{type:String,required:true},
-    createdAt:{type:Number,required:true}
+  content: { type: String, required: true },
+  createdAt: { type: Number, required: true },
+  userId: { type: String, required: true },
 });
 
-module.exports = model('Note', NoteSchema)
+module.exports = model("Note", NoteSchema);

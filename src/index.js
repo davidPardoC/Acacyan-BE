@@ -1,7 +1,9 @@
 const express = require("express");
 const verifyToken = require("./middleware/auth");
+const cors = require('cors')
 const app = express();
 /* MiddleWares */
+app.use(cors())
 app.use(express.json())
 
 /* Database Connection */
