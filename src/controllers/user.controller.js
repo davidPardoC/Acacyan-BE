@@ -2,6 +2,7 @@ const User = require("../schema/Users");
 const jwt = require('jsonwebtoken')
 const createuser = async (req, res) => {
   const { userName, email, password } = req.body;
+  console.log(req.body)
   if (await checkExistinguser(userName, email)) {
     return res
       .status(403)
@@ -63,6 +64,9 @@ const loginEmail = async (email, password, res) => {
 const checkExistinguser = async (userName, email) => {
   const userExists = await User.findOne({ userName });
   const emailExist = await User.findOne({ email });
+  console.log('userName',userExists)
+  console.log(emailExist)
+
   if (userExists || emailExist) {
     return true;
   } else {

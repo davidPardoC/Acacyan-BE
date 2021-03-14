@@ -2,6 +2,8 @@ const express = require("express");
 const verifyToken = require("./middleware/auth");
 const cors = require('cors')
 const app = express();
+const port = 3000 || process.env.PORT
+
 /* MiddleWares */
 app.use(cors())
 app.use(express.json())
@@ -22,6 +24,6 @@ app.get("/", (req, res) => {
 app.use('/notes',verifyToken, notesRouter)
 app.use('/users', userRouter)
 
-app.listen(3000, () => {
+app.listen(port, () => {
   console.log("App is listening on port 3000!");
 });
